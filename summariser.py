@@ -16,7 +16,7 @@ class GeminiSummariser:
     def summarize_transcript(self, transcript: str) -> str:
         try:
             prompt = f"""
-            Please provide a comprehensive summary of this video transcript in detail.
+            Please provide a detailed summary of these videos in detail.
             
             Transcript:
             {transcript}

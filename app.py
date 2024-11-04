@@ -5,14 +5,13 @@ from summariser import GeminiSummariser
 
 def main():
     st.title('YouTube Video Summarizer')
-    keyword = st.text_input('Enter a keyword to search on YouTube:', '')
+    keyword = st.text_input('Enter a keyword to search:', '')
 
     try:
         summarizer = GeminiSummariser()
     except ValueError as e:
         st.error(f"Error initializing the summarizer: {str(e)}")
-        return  # Stop further execution if there is an error with the summarizer
-
+        return  
     if st.button('Search'):
         if keyword:
             links = fetch_video_links(keyword)
@@ -29,7 +28,7 @@ def main():
                     else:
                         video_details.append(f"Title: {title} (No Transcript Available), ID: {video_id}, Link: {link}")
                 
-                # Concatenate all transcripts for a collective summary
+               
                 combined_transcript = " ".join(transcripts)
                 if combined_transcript:
                     summary = summarizer.summarize_transcript(combined_transcript)
@@ -38,7 +37,7 @@ def main():
                 else:
                     st.error("No transcripts available to summarize.")
 
-                # Optionally display video details
+                
                 for detail in video_details:
                     st.write(detail)
             else:

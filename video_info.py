@@ -3,7 +3,6 @@ import requests
 from bs4 import BeautifulSoup
 from youtube_transcript_api import YouTubeTranscriptApi
 
-# extract the video ID from a YouTube video link
 def get_video_id(link):
     if "youtube.com" in link:
         pattern = r'youtube\.com/watch\?v=([a-zA-Z0-9_-]+)'
@@ -15,14 +14,14 @@ def get_video_id(link):
         return match.group(1) if match else None
     return None
 
-#  get the title of a YouTube video
+
 def get_video_title(link):
     response = requests.get(link)
     soup = BeautifulSoup(response.text, 'html.parser')
     title_tag = soup.find("meta", property="og:title")
     return title_tag["content"] if title_tag else "Title not found"
 
-# get the transcript of a YouTube video
+
 def get_transcript(video_id):
     try:
         transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
@@ -30,7 +29,7 @@ def get_transcript(video_id):
     except Exception as e:
         return str(e)
 
-# get the transcript of a YouTube video with timestamps
+
 def get_transcript_with_timestamps(video_id):
     try:
         transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
